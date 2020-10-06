@@ -1,0 +1,37 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "node js socket.io chatting app",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec ts-node src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seungbin9850/node-chat-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seungbin9850/node-chat-app/issues"
+  },
+  "homepage": "https://github.com/seungbin9850/node-chat-app#readme",
+  "dependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.7",
+    "@types/mysql": "^2.15.15",
+    "@types/node": "^14.0.22",
+    "@types/sequelize": "^4.28.9",
+    "bcrypt-nodejs": "0.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.3",
+    "sequelize-cli": "^6.2.0",
+    "uuid4": "^2.0.2"
+  }
+}
