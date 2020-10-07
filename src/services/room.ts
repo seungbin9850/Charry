@@ -37,3 +37,15 @@ const getRoomId = async (userId: string): Promise<Array<string>> => {
   arr.forEach((e) => roomIdArr.push(e.roomId));
   return roomIdArr;
 };
+
+export const outUser = async (userId: string, roomId: string) => {
+  await Member.destroy({ where: { userId, roomId } });
+};
+
+export const destroyOne = async (userId: string, roomId: string) => {
+  try {
+    await Room.destroy({ where: { id: roomId, hostId: userId } });
+  } catch (e) {
+    throw new HttpError(403, "this user is not a host");
+  }
+};

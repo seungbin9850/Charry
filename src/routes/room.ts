@@ -29,4 +29,16 @@ router.get(
   tryCatchMiddleware.Error(controller.getRoom)
 );
 
+router.delete(
+  "/room",
+  authMiddleware,
+  tryCatchMiddleware.Error(controller.destroyRoom)
+);
+
+router.delete(
+  "/member",
+  authMiddleware,
+  tryCatchMiddleware.Error(controller.outRoom)
+);
+
 export default router;
