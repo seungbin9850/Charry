@@ -30,3 +30,5 @@ io.on("connection", (socket: any) => {
 server.listen(3000, () => {
   console.log("server on");
 });
+
+export default app;
