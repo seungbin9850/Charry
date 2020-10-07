@@ -18,7 +18,7 @@ export const searchRoom = async (
   next: NextFunction
 ) => {
   const title: any = req.query.title;
-  const rooms = await RoomService.searchOne(title);
+  const rooms: Array<object> = await RoomService.searchOne(title);
   res.status(200).json({ rooms });
 };
 
