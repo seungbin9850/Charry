@@ -6,6 +6,7 @@ import { Chat } from "./chat";
 export class Room extends Model {
   id: string;
   title: string;
+  hostId: string;
 }
 
 Room.init(
