@@ -1,14 +1,9 @@
 import { User } from "../models/user";
 import { IUserRegisterDTO, IUserLoginDTO } from "../interfaces/IUser";
-import uuid4 from "uuid4";
+import { mkId } from "./uuid";
 import { HttpError } from "../exception/exception";
 import bcrypt from "bcrypt-nodejs";
-import jwt from "jsonwebtoken";
-
-const mkId = async (): Promise<string> => {
-  const id = await uuid4().split("-");
-  return id[2] + id[1] + id[0] + id[3] + id[4];
-};
+import { mkAccess, mkRefresh } from "./mkToken";
 
 export const createUser = async (userRegisterDTO: IUserRegisterDTO) => {
   const { userId, password, nickname } = userRegisterDTO;
@@ -16,7 +11,7 @@ export const createUser = async (userRegisterDTO: IUserRegisterDTO) => {
   const encodedPassword: string = await passwordEncoding(password);
   if (!(await isExists(userId)))
     await User.create({ id, userId, password: encodedPassword, nickname });
-  else throw new HttpError(409);
+  else throw new HttpError(409, "user id already exists");
 };
 
 const isExists = async (userId: string): Promise<boolean> => {
@@ -44,8 +39,8 @@ export const login = async (
   const user = await findOneUser(userId);
   if (!(await passwordCompare(password, user.password)))
     throw new HttpError(404);
-  const accessToken = await mkAccess(userId, accessSecret);
-  const refreshToken = await mkRefresh(userId, refreshSecret);
+  const accessToken = await mkAccess(user.id, accessSecret);
+  const refreshToken = await mkRefresh(user.id, refreshSecret);
   return { accessToken, refreshToken };
 };
 
@@ -54,32 +49,6 @@ const findOneUser = async (userId: string): Promise<User> => {
     const user: any = await User.findOne({ where: { userId } });
     return user;
   } catch (e) {
-    throw new HttpError(404);
+    throw new HttpError(404, "user not found");
   }
-};
-
-const mkAccess = async (userId: string, secret: string): Promise<string> => {
-  const token: string = await jwt.sign(
-    {
-      userId,
-    },
-    secret,
-    {
-      expiresIn: "500m",
-    }
-  );
-  return token;
-};
-
-const mkRefresh = async (userId: string, secret: string): Promise<string> => {
-  const token: string = await jwt.sign(
-    {
-      userId,
-    },
-    secret,
-    {
-      expiresIn: "1w",
-    }
-  );
-  return token;
 };
