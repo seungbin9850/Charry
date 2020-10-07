@@ -25,3 +25,14 @@ export const login = async (
   );
   res.status(200).json(token);
 };
+
+export const refreshAccess = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const id: string = req["decoded"].id;
+  const accessSecret: string = req.app.get("jwt-secret");
+  const accessToken: string = await UserService.refresh(id, accessSecret);
+  res.status(200).json({ accessToken });
+};

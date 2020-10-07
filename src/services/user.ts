@@ -52,3 +52,10 @@ const findOneUser = async (userId: string): Promise<User> => {
     throw new HttpError(404, "user not found");
   }
 };
+
+export const refresh = async (
+  id: string,
+  accessSecret: string
+): Promise<string> => {
+  return await mkAccess(id, accessSecret);
+};
