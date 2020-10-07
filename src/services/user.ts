@@ -38,7 +38,7 @@ export const login = async (
   const { userId, password } = userLoginDTO;
   const user = await findOneUser(userId);
   if (!(await passwordCompare(password, user.password)))
-    throw new HttpError(404);
+    throw new HttpError(404, "user not found");
   const accessToken = await mkAccess(user.id, accessSecret);
   const refreshToken = await mkRefresh(user.id, refreshSecret);
   return { accessToken, refreshToken };
