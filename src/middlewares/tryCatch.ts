@@ -10,7 +10,7 @@ export class tryCatchMiddleware {
       try {
         await cb(req, res, next);
       } catch (e) {
-        res.status(e.statusCode || 500).end();
+        res.status(e.statusCode || 500).json({ message: e.message });
       }
     };
   };
