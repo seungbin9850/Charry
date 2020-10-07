@@ -2,20 +2,24 @@ import { sequelize } from "../config/config";
 import Sequelize, { Model } from "sequelize";
 
 export class Chat extends Model {
+  id: string;
   userId: string;
   roomId: string;
   content: string;
+  createdAt: Date;
 }
 
 Chat.init(
   {
-    userId: {
+    id: {
       type: Sequelize.STRING(30),
       primaryKey: true,
     },
+    userId: {
+      type: Sequelize.STRING(30),
+    },
     roomId: {
       type: Sequelize.STRING(30),
-      primaryKey: true,
     },
     content: {
       type: Sequelize.STRING(500),

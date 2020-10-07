@@ -17,7 +17,7 @@ Room.init(
       allowNull: false,
     },
     hostId: {
-      type: Sequelize.STRING(),
+      type: Sequelize.STRING(30),
     },
   },
   {
