@@ -19,10 +19,16 @@ export const searchOne = async (title: string): Promise<Array<Room>> => {
 
 export const joinMember = async (roomId: string, userId: string) => {
   try {
+    await findRoom(roomId);
     await Member.create({ roomId, userId });
   } catch (e) {
     throw new HttpError(409, "user already in this room");
   }
+};
+
+const findRoom = async (roomId: string) => {
+  const room: any = await Room.findOne({ where: { roomId } });
+  if (room) throw new HttpError(404, "room not found");
 };
 
 export const getAll = async (userId: string): Promise<Array<Room>> => {
