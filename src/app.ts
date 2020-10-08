@@ -36,7 +36,7 @@ io.on("connection", (socket: any) => {
   console.log("socket connected");
 });
 
-server.listen(3000, () => {
+server.listen(8000, () => {
   console.log("server on");
 });
 
