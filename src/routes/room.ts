@@ -38,7 +38,7 @@ router.delete(
 router.delete(
   "/member",
   authMiddleware,
-  tryCatchMiddleware.Error(controller.outRoom)
+  tryCatchMiddleware.Error(controller.leaveRoom)
 );
 
 export default router;

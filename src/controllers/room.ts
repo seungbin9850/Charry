@@ -43,7 +43,7 @@ export const getRoom = async (
   res.status(200).json({ rooms });
 };
 
-export const outRoom = async (
+export const leaveRoom = async (
   req: Request,
   res: Response,
   next: NextFunction
