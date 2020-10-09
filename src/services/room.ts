@@ -6,7 +6,8 @@ import { HttpError } from "../exception/exception";
 
 export const createOne = async (title: string, hostId: string) => {
   const id: string = await mkId();
-  await Room.create({ id, title, hostId });
+  const room = await Room.create({ id, title, hostId });
+  await joinMember(room.id, hostId);
 };
 
 export const searchOne = async (title: string): Promise<Array<Room>> => {
