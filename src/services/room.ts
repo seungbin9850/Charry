@@ -26,11 +26,6 @@ export const joinMember = async (roomId: string, userId: string) => {
   }
 };
 
-const findRoom = async (roomId: string) => {
-  const room: any = await Room.findOne({ where: { roomId } });
-  if (room) throw new HttpError(404, "room not found");
-};
-
 export const getAll = async (userId: string): Promise<Array<Room>> => {
   const roomIds = await getRoomId(userId);
   const rooms = await Room.findAll({ where: { id: { [Op.in]: roomIds } } });
