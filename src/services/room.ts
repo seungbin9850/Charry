@@ -20,7 +20,6 @@ export const searchOne = async (title: string): Promise<Array<Room>> => {
 
 export const joinMember = async (roomId: string, userId: string) => {
   try {
-    await findRoom(roomId);
     await Member.create({ roomId, userId });
   } catch (e) {
     throw new HttpError(409, "user already in this room");
