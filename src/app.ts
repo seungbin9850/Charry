@@ -5,8 +5,10 @@ import * as dotenv from "dotenv";
 import path from "path";
 import http from "http";
 import socketio from "socket.io";
+import socketJwt from "socketio-jwt";
 import { sequelize } from "./config/config";
 import router from "./routes";
+import chat from "./socket/chat";
 
 dotenv.config({ path: path.join(__dirname + "../../.env") });
 
@@ -32,9 +34,18 @@ app.use((err, req: Request, res: Response, next: NextFunction) => {
 app.set("jwt-secret", process.env.JWT_SECRET);
 app.set("refresh-secret", process.env.REFRESH_SECRET);
 
-io.on("connection", (socket: any) => {
-  console.log("socket connected");
-});
+io.sockets
+  .on(
+    "connection",
+    socketJwt.authorize({
+      secret: `${process.env.JWT_SECRET}`,
+      timeout: 15000,
+    })
+  )
+  .on("authenticated", (socket) => {
+    console.log(socket.decoded_token.id);
+    chat(io, socket);
+  });
 
 server.listen(8000, () => {
   console.log("server on");
