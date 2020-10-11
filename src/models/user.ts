@@ -6,9 +6,9 @@ import { Member } from "./member";
 
 export class User extends Model {
   id: string;
+  userId: string;
   password: string;
-  name: string;
-  img: string;
+  nickname: string;
 }
 
 User.init(
