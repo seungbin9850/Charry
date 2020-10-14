@@ -22,7 +22,9 @@ const socketEvent = (io, socket) => {
   socket.on("destroy", async (roomId: string, email: string) => {
     await RoomService.destroyOne(email, roomId);
   });
-  socket.on("disconnect");
+  socket.on("disconnect", () => {
+    console.log("disconnected");
+  });
 };
 
 export default socketEvent;
