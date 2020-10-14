@@ -5,7 +5,6 @@ import * as dotenv from "dotenv";
 import path from "path";
 import http from "http";
 import socketio from "socket.io";
-import socketJwt from "socketio-jwt";
 import { sequelize } from "./config/config";
 import router from "./routes";
 import chat from "./socket/chat";
@@ -35,7 +34,6 @@ app.set("jwt-secret", process.env.JWT_SECRET);
 app.set("refresh-secret", process.env.REFRESH_SECRET);
 
 io.on("connection", (socket) => {
-  console.log("1");
   chat(io, socket);
 });
 
