@@ -7,7 +7,7 @@ const router = Router();
 
 router.post("/", tryCatchMiddleware.Error(controller.register));
 router.post("/login", tryCatchMiddleware.Error(controller.login));
-router.put(
+router.get(
   "/refresh",
   refreshMiddleware,
   tryCatchMiddleware.Error(controller.refreshAccess)
