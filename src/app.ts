@@ -34,18 +34,10 @@ app.use((err, req: Request, res: Response, next: NextFunction) => {
 app.set("jwt-secret", process.env.JWT_SECRET);
 app.set("refresh-secret", process.env.REFRESH_SECRET);
 
-io.sockets
-  .on(
-    "connection",
-    socketJwt.authorize({
-      secret: `${process.env.JWT_SECRET}`,
-      timeout: 15000,
-    })
-  )
-  .on("authenticated", (socket) => {
-    console.log(socket.decoded_token.id);
-    chat(io, socket);
-  });
+io.on("connection", (socket) => {
+  console.log("1");
+  chat(io, socket);
+});
 
 server.listen(8000, () => {
   console.log("server on");
