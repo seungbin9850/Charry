@@ -12,10 +12,10 @@ router.get(
   refreshMiddleware,
   tryCatchMiddleware.Error(controller.refreshAccess)
 );
-// router.get(
-//   "/main",
-//   authMiddleware,
-//   tryCatchMiddleware.Error(controller.mainUserInfo)
-// );
+router.get(
+  "/main",
+  authMiddleware,
+  tryCatchMiddleware.Error(controller.mainUserInfo)
+);
 
 export default router;

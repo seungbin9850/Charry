@@ -53,6 +53,15 @@ export const findOneUser = async (userId: string): Promise<User> => {
   }
 };
 
+export const findOneUserById = async (id: string): Promise<User> => {
+  try {
+    const user: any = await User.findOne({ where: { id } });
+    return user;
+  } catch (e) {
+    throw new HttpError(404, "user not found");
+  }
+};
+
 export const refresh = async (
   id: string,
   accessSecret: string
