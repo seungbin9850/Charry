@@ -44,7 +44,7 @@ export const login = async (
   return { accessToken, refreshToken };
 };
 
-const findOneUser = async (userId: string): Promise<User> => {
+export const findOneUser = async (userId: string): Promise<User> => {
   try {
     const user: any = await User.findOne({ where: { userId } });
     return user;

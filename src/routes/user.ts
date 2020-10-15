@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { tryCatchMiddleware } from "../middlewares/tryCatch";
-import { refreshMiddleware } from "../middlewares/auth";
+import { authMiddleware, refreshMiddleware } from "../middlewares/auth";
 import * as controller from "../controllers/user";
 
 const router = Router();
@@ -11,6 +11,11 @@ router.get(
   "/refresh",
   refreshMiddleware,
   tryCatchMiddleware.Error(controller.refreshAccess)
+);
+router.get(
+  "/main",
+  authMiddleware,
+  tryCatchMiddleware.Error(controller.mainUserInfo)
 );
 
 export default router;

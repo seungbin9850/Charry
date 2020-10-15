@@ -36,3 +36,13 @@ export const refreshAccess = async (
   const accessToken: string = await UserService.refresh(id, accessSecret);
   res.status(200).json({ accessToken });
 };
+
+export const mainUserInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const id: string = req["decoded"].id;
+  const { userId, nickname } = await UserService.findOneUser(id);
+  res.status(200).json({ userId, nickname });
+};
