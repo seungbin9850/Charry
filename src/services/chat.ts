@@ -1,6 +1,6 @@
 import { Chat } from "../models/chat";
 import { User } from "../models/user";
-import { mkId } from "./uuid";
+import { mkId } from "../utils/uuid";
 
 export const showLog = async (
   roomId: string,

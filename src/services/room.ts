@@ -1,6 +1,6 @@
 import { Room } from "../models/room";
 import { Member } from "../models/member";
-import { mkId } from "./uuid";
+import { mkId } from "../utils/uuid";
 import { Op } from "sequelize";
 import { HttpError } from "../exception/exception";
 

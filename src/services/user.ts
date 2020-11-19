@@ -1,9 +1,9 @@
 import { User } from "../models/user";
 import { IUserRegisterDTO, IUserLoginDTO } from "../interfaces/IUser";
-import { mkId } from "./uuid";
+import { mkId } from "../utils/uuid";
 import { HttpError } from "../exception/exception";
 import bcrypt from "bcrypt-nodejs";
-import { mkAccess, mkRefresh } from "./mkToken";
+import { mkAccess, mkRefresh } from "../utils/mkToken";
 
 export const createUser = async (userRegisterDTO: IUserRegisterDTO) => {
   const { userId, password, nickname } = userRegisterDTO;
