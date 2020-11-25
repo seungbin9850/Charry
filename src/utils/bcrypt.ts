@@ -5,8 +5,8 @@ export const passwordEncoding = async (password: string): Promise<string> => {
 };
 
 export const passwordCompare = async (
-  password: string,
+  inputPassword: string,
   encodedPassword: string
 ): Promise<boolean> => {
-  return await bcrypt.compareSync(password, encodedPassword);
+  return await bcrypt.compareSync(inputPassword, encodedPassword);
 };
