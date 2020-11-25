@@ -2,7 +2,7 @@ import { User } from "../models/user";
 import { IUserRegisterDTO, IUserLoginDTO } from "../interfaces/IUser";
 import { mkId } from "../utils/uuid";
 import { HttpError } from "../exception/exception";
-import bcrypt from "bcrypt-nodejs";
+import { passwordEncoding, passwordCompare } from "../utils/bcrypt";
 import { mkAccess, mkRefresh } from "../utils/mkToken";
 
 export const createUser = async (userRegisterDTO: IUserRegisterDTO) => {
@@ -17,17 +17,6 @@ export const createUser = async (userRegisterDTO: IUserRegisterDTO) => {
 const isExists = async (userId: string): Promise<boolean> => {
   if (await User.findOne({ where: { userId } })) return true;
   return false;
-};
-
-const passwordEncoding = async (password: string): Promise<string> => {
-  return await bcrypt.hashSync(password);
-};
-
-const passwordCompare = async (
-  password: string,
-  encodedPassword: string
-): Promise<boolean> => {
-  return await bcrypt.compareSync(password, encodedPassword);
 };
 
 export const login = async (
