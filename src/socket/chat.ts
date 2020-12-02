@@ -1,11 +1,12 @@
 import * as ChatService from "../services/chat";
 import * as RoomService from "../services/room";
+import { JoinRequestDTO } from "../interfaces/IChat";
 
 const socketEvent = (io, socket) => {
-  socket.on("join", async (roomId: string, email: string, nickname: string) => {
-    await RoomService.joinMember(roomId, email);
-    socket.join(roomId);
-    io.to(roomId).emit("joinMessage", nickname);
+  socket.on("join", async (req: JoinRequestDTO) => {
+    await RoomService.joinMember(req.roomId, req.email);
+    socket.join(req.roomId);
+    io.to(req.roomId).emit("joinMessage", req.nickname);
   });
   socket.on("chat", async (roomId: string, email: string, content: string) => {
     await ChatService.chat(roomId, email, content);
