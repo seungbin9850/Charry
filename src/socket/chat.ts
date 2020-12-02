@@ -1,6 +1,6 @@
 import * as ChatService from "../services/chat";
 import * as RoomService from "../services/room";
-import { JoinRequestDTO } from "../interfaces/IChat";
+import { JoinRequestDTO, ChatRequestDTO } from "../interfaces/IChat";
 
 const socketEvent = (io, socket) => {
   socket.on("join", async (req: JoinRequestDTO) => {
@@ -8,9 +8,9 @@ const socketEvent = (io, socket) => {
     socket.join(req.roomId);
     io.to(req.roomId).emit("joinMessage", req.nickname);
   });
-  socket.on("chat", async (roomId: string, email: string, content: string) => {
-    await ChatService.chat(roomId, email, content);
-    socket.broadcast.to(roomId).emit("receive", content);
+  socket.on("chat", async (req: ChatRequestDTO) => {
+    await ChatService.chat(req);
+    socket.broadcast.to(req.roomId).emit("receive", req.content);
   });
   socket.on(
     "leave",
