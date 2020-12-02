@@ -14,7 +14,7 @@ dotenv.config({ path: path.join(__dirname + "../../.env") });
 const app: Application = express();
 
 const server: http.Server = http.createServer(app);
-const io: any = socketio(server);
+const io = socketio(server);
 
 app.use(morgan("dev"));
 app.use(cors());
@@ -33,7 +33,7 @@ app.use((err, req: Request, res: Response, next: NextFunction) => {
 app.set("jwt-secret", process.env.JWT_SECRET);
 app.set("refresh-secret", process.env.REFRESH_SECRET);
 
-io.on("connection", (socket) => {
+io.sockets.on("connection", (socket) => {
   chat(io, socket);
 });
 
