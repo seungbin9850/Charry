@@ -3,3 +3,9 @@ export interface chat {
   email: string;
   content: string;
 }
+
+export interface JoinRequestDTO {
+  roomId: string;
+  email: string;
+  nickname: string;
+}
