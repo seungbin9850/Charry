@@ -9,7 +9,7 @@ const socketEvent = (io, socket) => {
   });
   socket.on("chat", async (roomId: string, email: string, content: string) => {
     await ChatService.chat(roomId, email, content);
-    io.to(roomId).emit("chatMessage", content);
+    socket.broadcast.to(roomId).emit("receive", content);
   });
   socket.on(
     "leave",
