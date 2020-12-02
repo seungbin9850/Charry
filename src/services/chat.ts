@@ -1,6 +1,7 @@
 import { Chat } from "../models/chat";
 import { User } from "../models/user";
 import { mkId } from "../utils/uuid";
+import { ChatRequestDTO } from "../interfaces/IChat";
 
 export const showLog = async (
   roomId: string,
@@ -20,8 +21,12 @@ export const showLog = async (
   return chats;
 };
 
-export const chat = async (roomId: string, userId: string, content: string) => {
+export const chat = async (req: ChatRequestDTO) => {
   const id: string = await mkId();
-  await Chat.create({ id, roomId, userId, content });
+  await Chat.create({
+    id,
+    roomId: req.roomId,
+    userId: req.id,
+    content: req.content,
+  });
 };
-
