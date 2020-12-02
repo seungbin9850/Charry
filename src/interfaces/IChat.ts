@@ -1,6 +1,6 @@
-export interface chat {
+export interface ChatRequestDTO {
   roomId: string;
-  email: string;
+  id: string;
   content: string;
 }
 
