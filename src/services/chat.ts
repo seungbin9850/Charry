@@ -1,22 +1,20 @@
 import { Chat } from "../models/chat";
 import { User } from "../models/user";
 import { mkId } from "../utils/uuid";
-import { ChatRequestDTO } from "../interfaces/IChat";
+import { ChatRequestDTO, ShowLogsRequestDTO } from "../interfaces/IChat";
 
 export const showLog = async (
-  roomId: string,
-  userId: string,
-  page: number
+  req: ShowLogsRequestDTO
 ): Promise<Array<Chat>> => {
   const chats = await Chat.findAll({
     include: [{ model: User, attributes: ["nickname"] }],
-    where: { roomId },
-    offset: 16 * (page - 1),
+    where: { roomId: req.roomId },
+    offset: 16 * (req.page - 1),
     limit: 16,
   });
   chats.forEach((e) => {
     e["dataValues"].isMine = false;
-    if (e.userId === userId) e["dataValues"].isMine = true;
+    if (e.userId === req.userId) e["dataValues"].isMine = true;
   });
   return chats;
 };
