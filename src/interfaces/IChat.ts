@@ -9,3 +9,9 @@ export interface JoinRequestDTO {
   email: string;
   nickname: string;
 }
+
+export interface ShowLogsRequestDTO {
+  roomId: string;
+  userId: string;
+  page: number;
+}
