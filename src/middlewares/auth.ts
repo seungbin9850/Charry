@@ -10,7 +10,7 @@ export const authMiddleware = (
   if (!token) return res.status(401).json({ message: "token required" });
   const bearer = token.split("Bearer ")[1];
   jwt.verify(bearer, req.app.get("jwt-secret"), (err, decoded) => {
-    if (err) return res.status(403).json({ message: "token expired" });
+    if (err) return res.status(403).json({ message: err.message });
     req["decoded"] = decoded;
     next();
   });
@@ -25,7 +25,7 @@ export const refreshMiddleware = (
   if (!token) return res.status(401).json({ message: "token required" });
   const bearer = token.split("Bearer ")[1];
   jwt.verify(bearer, req.app.get("refresh-secret"), (err, decoded) => {
-    if (err) return res.status(403).json({ message: "token expired" });
+    if (err) return res.status(403).json({ message: err.message });
     req["decoded"] = decoded;
     next();
   });
