@@ -6,9 +6,9 @@ export const showChatLog = async (
   res: Response,
   next: NextFunction
 ) => {
-  const roomId: string = req.params.id;
+  const roomId: any = req.query.id;
   const userId: string = req["decoded"].id;
-  const page: number = Number(req.params.page);
+  const page: number = Number(req.query.page);
   const chats: Array<object> = await ChatService.showLog({
     roomId,
     userId,
