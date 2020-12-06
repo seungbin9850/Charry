@@ -4,12 +4,6 @@ export interface ChatRequestDTO {
   content: string;
 }
 
-export interface JoinRequestDTO {
-  roomId: string;
-  email: string;
-  nickname: string;
-}
-
 export interface ShowLogsRequestDTO {
   roomId: string;
   userId: string;
