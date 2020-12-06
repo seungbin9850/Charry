@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { Room } from "../models/room";
 import * as RoomService from "../services/room";
 
 export const createRoom = async (
@@ -64,4 +65,14 @@ export const destroyRoom = async (
   const roomId: string = req.params.id;
   await RoomService.destroyOne(userId, roomId);
   res.status(200).end();
+};
+
+export const getRoomTitle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const roomId: string = req.params.id;
+  const room: Room = await RoomService.getRoomTitle(roomId);
+  res.status(200).json({ title: room.title });
 };
