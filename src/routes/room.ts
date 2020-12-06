@@ -2,6 +2,7 @@ import { Router } from "express";
 import { tryCatchMiddleware } from "../middlewares/tryCatch";
 import { authMiddleware } from "../middlewares/auth";
 import * as controller from "../controllers/room";
+import * as ChatController from "../controllers/chat";
 
 const router = Router();
 
@@ -39,6 +40,18 @@ router.delete(
   "/member",
   authMiddleware,
   tryCatchMiddleware.Error(controller.leaveRoom)
+);
+
+router.get(
+  "/room/title/:id",
+  authMiddleware,
+  tryCatchMiddleware.Error(controller.getRoomTitle)
+);
+
+router.get(
+  "/",
+  authMiddleware,
+  tryCatchMiddleware.Error(ChatController.showChatLog)
 );
 
 export default router;
