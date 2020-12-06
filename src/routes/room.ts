@@ -11,7 +11,11 @@ router.post(
   tryCatchMiddleware.Error(controller.createRoom)
 );
 
-router.get("/room/search", tryCatchMiddleware.Error(controller.searchRoom));
+router.get(
+  "/room/search",
+  authMiddleware,
+  tryCatchMiddleware.Error(controller.searchRoom)
+);
 
 router.post(
   "/room/join",
@@ -26,7 +30,7 @@ router.get(
 );
 
 router.delete(
-  "/room",
+  "/room/:id",
   authMiddleware,
   tryCatchMiddleware.Error(controller.destroyRoom)
 );
