@@ -9,3 +9,8 @@ export interface ShowLogsRequestDTO {
   userId: string;
   page: number;
 }
+
+export interface LeaveRoomRequestDTO {
+  roomId: string;
+  userId: string;
+}
