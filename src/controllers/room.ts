@@ -17,8 +17,9 @@ export const searchRoom = async (
   res: Response,
   next: NextFunction
 ) => {
+  const id: string = req["decoded"].id;
   const title: any = req.query.title;
-  const rooms: Array<object> = await RoomService.searchOne(title);
+  const rooms: Array<object> = await RoomService.searchOne(id, title);
   res.status(200).json({ rooms });
 };
 
@@ -38,8 +39,8 @@ export const getRoom = async (
   res: Response,
   next: NextFunction
 ) => {
-  const userId: string = req["decoded"].id;
-  const rooms: Array<object> = await RoomService.getAll(userId);
+  const id: string = req["decoded"].id;
+  const rooms: Array<object> = await RoomService.getAll(id);
   res.status(200).json({ rooms });
 };
 
@@ -60,7 +61,7 @@ export const destroyRoom = async (
   next: NextFunction
 ) => {
   const userId: string = req["decoded"].id;
-  const roomId: string = req.body.roomId;
+  const roomId: string = req.params.id;
   await RoomService.destroyOne(userId, roomId);
   res.status(200).end();
 };
