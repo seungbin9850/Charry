@@ -44,5 +44,7 @@ export const mainUserInfo = async (
 ) => {
   const id: string = req["decoded"].id;
   const user = await UserService.findOneUserById(id);
-  res.status(200).json({ userId: user.userId, nickname: user.nickname });
+  res
+    .status(200)
+    .json({ id: user.id, userId: user.userId, nickname: user.nickname });
 };
