@@ -37,7 +37,7 @@ io.sockets.on("connection", (socket) => {
   chat(io, socket);
 });
 
-server.listen(8000, () => {
+server.listen(3000, () => {
   console.log("server on");
 });
 
