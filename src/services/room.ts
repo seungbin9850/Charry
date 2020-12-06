@@ -10,12 +10,18 @@ export const createOne = async (title: string, hostId: string) => {
   await joinMember(room.id, hostId);
 };
 
-export const searchOne = async (title: string): Promise<Array<Room>> => {
+export const searchOne = async (
+  id: string,
+  title: string
+): Promise<Array<Room>> => {
+  const joinedRooms: Array<string> = await getRoomId(id);
   const rooms: Array<Room> = await Room.findAll({
-    where: { title: { [Op.like]: `%${title}%` } },
+    where: {
+      title: { [Op.like]: `%${title}%` },
+      id: { [Op.notIn]: joinedRooms },
+    },
     attributes: ["id", "title"],
   });
-
   return rooms;
 };
 
@@ -31,7 +37,11 @@ export const getAll = async (userId: string): Promise<Array<Room>> => {
   const roomIds = await getRoomId(userId);
   const rooms = await Room.findAll({
     where: { id: { [Op.in]: roomIds } },
-    attributes: ["id", "title"],
+    attributes: ["id", "title", "hostId"],
+  });
+  rooms.forEach((e) => {
+    e["dataValues"].isHost = false;
+    if (e["dataValues"].hostId === userId) e["dataValues"].isHost = true;
   });
   return rooms;
 };
