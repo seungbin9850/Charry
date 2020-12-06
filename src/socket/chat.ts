@@ -1,6 +1,8 @@
 import * as ChatService from "../services/chat";
 import * as RoomService from "../services/room";
+import * as UserService from "../services/user";
 import { ChatRequestDTO, LeaveRoomRequestDTO } from "../interfaces/IChat";
+import { User } from "../models/user";
 
 const socketEvent = (io, socket) => {
   socket.on("join", async (roomId: string) => {
@@ -10,7 +12,9 @@ const socketEvent = (io, socket) => {
   socket.on("chat", async (req: ChatRequestDTO) => {
     console.log(req);
     await ChatService.chat(req);
-    socket.broadcast.to(req.roomId).emit("receive", req.content);
+    const user: User = await UserService.findOneUserById(req.userId);
+    console.log(user);
+    socket.broadcast.to(req.roomId).emit("receive", user.nickname, req.content);
   });
   socket.on("leave", async (req: LeaveRoomRequestDTO) => {
     await RoomService.outUser(req.userId, req.roomId);
