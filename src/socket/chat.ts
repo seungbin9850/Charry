@@ -1,6 +1,6 @@
 import * as ChatService from "../services/chat";
 import * as RoomService from "../services/room";
-import { ChatRequestDTO } from "../interfaces/IChat";
+import { ChatRequestDTO, LeaveRoomRequestDTO } from "../interfaces/IChat";
 
 const socketEvent = (io, socket) => {
   socket.on("join", async (roomId: string) => {
@@ -12,14 +12,11 @@ const socketEvent = (io, socket) => {
     await ChatService.chat(req);
     socket.broadcast.to(req.roomId).emit("receive", req.content);
   });
-  socket.on(
-    "leave",
-    async (roomId: string, email: string, nickname: string) => {
-      await RoomService.outUser(email, roomId);
-      socket.leave(roomId);
-      io.to(roomId).emit("leaveMessage", nickname);
-    }
-  );
+  socket.on("leave", async (req: LeaveRoomRequestDTO) => {
+    await RoomService.outUser(req.userId, req.roomId);
+    socket.leave(req.roomId);
+    // io.to(roomId).emit("leaveMessage", nickname);
+  });
   socket.on("destroy", async (roomId: string, email: string) => {
     await RoomService.destroyOne(email, roomId);
   });
