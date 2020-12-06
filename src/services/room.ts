@@ -64,3 +64,12 @@ export const destroyOne = async (userId: string, roomId: string) => {
     throw new HttpError(403, "this user is not a host");
   }
 };
+
+export const getRoomTitle = async (roomId: string): Promise<Room> => {
+  try {
+    const room: any = await Room.findOne({ where: { id: roomId } });
+    return room;
+  } catch (e) {
+    throw new HttpError(404, "room not found");
+  }
+};
