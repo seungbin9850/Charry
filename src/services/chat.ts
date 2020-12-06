@@ -11,6 +11,7 @@ export const showLog = async (
     where: { roomId: req.roomId },
     offset: 16 * (req.page - 1),
     limit: 16,
+    attributes: ["content", "createdAt"],
   });
   chats.forEach((e) => {
     e["dataValues"].isMine = false;
@@ -24,7 +25,7 @@ export const chat = async (req: ChatRequestDTO) => {
   await Chat.create({
     id,
     roomId: req.roomId,
-    userId: req.id,
+    userId: req.userId,
     content: req.content,
   });
 };
