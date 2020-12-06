@@ -13,17 +13,18 @@ const socketEvent = (io, socket) => {
     console.log(req);
     await ChatService.chat(req);
     const user: User = await UserService.findOneUserById(req.userId);
-    console.log(user);
     socket.broadcast.to(req.roomId).emit("receive", user.nickname, req.content);
   });
   socket.on("leave", async (req: LeaveRoomRequestDTO) => {
     await RoomService.outUser(req.userId, req.roomId);
     socket.leave(req.roomId);
-    // io.to(roomId).emit("leaveMessage", nickname);
+    const user: User = await UserService.findOneUserById(req.userId);
+    socket.broadcast.to(req.roomId).emit("leaveMessage", user.nickname);
   });
-  socket.on("destroy", async (roomId: string, email: string) => {
-    await RoomService.destroyOne(email, roomId);
-  });
+  // socket.on("destroy", async (roomId: string, email: string) => {
+  //   await RoomService.destroyOne(email, roomId);
+  //   socket.broadcast.to(req.roomId).emit("receive", user.nickname);
+  // });
   socket.on("disconnect", () => {
     console.log("disconnected");
   });
