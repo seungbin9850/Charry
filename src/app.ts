@@ -4,17 +4,22 @@ import morgan from "morgan";
 import * as dotenv from "dotenv";
 import path from "path";
 import http from "http";
-import socketio from "socket.io";
+// import socketio from "socket.io";
 import { sequelize } from "./config/config";
 import router from "./routes";
 import chat from "./socket/chat";
+import { ChatRequestDTO } from "./interfaces/IChat";
+import * as ChatService from "./services/chat";
+import * as RoomService from "./services/room";
+
+const socketio = require("socket.io");
 
 dotenv.config({ path: path.join(__dirname + "../../.env") });
 
 const app: Application = express();
 
 const server: http.Server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, { cors: { origin: "*" } });
 
 app.use(morgan("dev"));
 app.use(cors());
