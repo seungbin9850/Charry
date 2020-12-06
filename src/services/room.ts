@@ -13,6 +13,7 @@ export const createOne = async (title: string, hostId: string) => {
 export const searchOne = async (title: string): Promise<Array<Room>> => {
   const rooms: Array<Room> = await Room.findAll({
     where: { title: { [Op.like]: `%${title}%` } },
+    attributes: ["id", "title"],
   });
 
   return rooms;
@@ -28,7 +29,10 @@ export const joinMember = async (roomId: string, userId: string) => {
 
 export const getAll = async (userId: string): Promise<Array<Room>> => {
   const roomIds = await getRoomId(userId);
-  const rooms = await Room.findAll({ where: { id: { [Op.in]: roomIds } } });
+  const rooms = await Room.findAll({
+    where: { id: { [Op.in]: roomIds } },
+    attributes: ["id", "title"],
+  });
   return rooms;
 };
 
