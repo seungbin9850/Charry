@@ -1,30 +1,13 @@
-import jwt from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
+import { promisify } from "util";
 
 export const mkAccess = async (id: string, secret: string): Promise<string> => {
-  const token: string = await jwt.sign(
-    {
-      id,
-    },
-    secret,
-    {
-      expiresIn: "500m",
-    }
-  );
-  return token;
+  return promisify(sign)({ id }, secret, { expiresIn: "500m" });
 };
 
 export const mkRefresh = async (
   id: string,
   secret: string
 ): Promise<string> => {
-  const token: string = await jwt.sign(
-    {
-      id,
-    },
-    secret,
-    {
-      expiresIn: "1w",
-    }
-  );
-  return token;
+  return promisify(sign)({ id }, secret, { expiresIn: "1w" });
 };
