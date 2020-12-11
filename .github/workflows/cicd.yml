@@ -8,7 +8,7 @@ on:
 
 jobs:
   CI:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     env:
       DB_NAME: ${{ secrets.DB_NAME }}
       DB_HOST: ${{ secrets.DB_HOST }}
@@ -34,7 +34,7 @@ jobs:
       - name: build
         run: npm run build
   CD:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: CI
 
     steps:
