@@ -44,7 +44,7 @@ jobs:
         run: docker-compose up --build -d
 
       - name: publish docker
-        uses: elgohr/Publish-Docker-Github-Action@2.11
+        uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: charry
           username: ${{ secrets.DOCKER_USERNAME }}
