@@ -18,7 +18,7 @@ jobs:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       REFRESH_SECRET: ${{ secrets.REFRESH_SECRET }}
     strategy:
-      martix:
+      matrix:
         node-version: [15.3.0]
     steps:
       - uses: actions/checkout@v2
@@ -26,7 +26,7 @@ jobs:
       - name: NodeJS Installation ${{ martix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ martix.node-version }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Dependencies Installation
         run: npm ci
