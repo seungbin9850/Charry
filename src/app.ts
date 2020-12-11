@@ -28,7 +28,7 @@ sequelize.sync();
 app.use("/", router);
 
 app.get("/test", (req, res, next) => {
-  res.send("1111111111111");
+  res.send("111111111111111");
 });
 
 app.use((err, req: Request, res: Response, next: NextFunction) => {
