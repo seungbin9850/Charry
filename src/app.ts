@@ -4,13 +4,9 @@ import morgan from "morgan";
 import * as dotenv from "dotenv";
 import path from "path";
 import http from "http";
-// import socketio from "socket.io";
 import { sequelize } from "./config/config";
 import router from "./routes";
 import chat from "./socket/chat";
-import { ChatRequestDTO } from "./interfaces/IChat";
-import * as ChatService from "./services/chat";
-import * as RoomService from "./services/room";
 
 const socketio = require("socket.io");
 
@@ -30,6 +26,10 @@ app.use(express.urlencoded({ extended: false }));
 sequelize.sync();
 
 app.use("/", router);
+
+app.get("/test", (req, res, next) => {
+  res.send("11111111");
+});
 
 app.use((err, req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({ message: err.message });
