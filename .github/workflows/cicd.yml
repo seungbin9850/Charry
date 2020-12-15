@@ -45,9 +45,9 @@ jobs:
         run: docker build -t charry .
       - name: Tags
         run: |
-          docker tag back ${{ secrets.DOCKER_USERNAME }}/back:${{ github.sha }}
-          docker tag back ${{ secrets.DOCKER_USERNAME }}/back:latest
+          docker tag charry ${{ secrets.DOCKER_USERNAME }}/charry:${{ github.sha }}
+          docker tag charry ${{ secrets.DOCKER_USERNAME }}/charry:latest
       - name: Push
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/back:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/back:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/charry:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/charry:latest
