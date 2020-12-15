@@ -50,7 +50,7 @@ jobs:
           docker tag back ${{ secrets.DOCKER_USERNAME }}/back:${{ github.sha }}
           docker tag back ${{ secrets.DOCKER_USERNAME }}/back:latest
 
-     - name: Push
+     - name: push
        run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/back:${{ github.sha }}
           docker push ${{ secrets.DOCKER_USERNAME }}/back:latest
